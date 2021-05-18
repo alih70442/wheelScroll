@@ -1,0 +1,89 @@
+.container {
+    margin-top: 50px;
+    max-width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.card {
+    background-color: rgb(32, 154, 235);
+    border: 1px solid rgb(172, 172, 172);
+    padding: 20px 16px;
+}
+
+// core style
+.wheelScroll {
+    $parent: #{&};
+
+    // vars
+    $rail_width: 10px;
+
+    position: relative;
+
+    overflow: hidden;
+    z-index: 1;
+
+    @at-root #{$parent}__outer {
+        width: calc(100% + 17px);
+        height: calc(100% + 17px);
+
+        overflow: scroll;
+
+        @at-root %railhandler {
+            position: absolute;
+            top: 0;
+            right: #{-$rail_width};
+
+            width: $rail_width;
+
+            background-color: rgba(48, 48, 48, 0.5);
+            transition: .3s right;
+            z-index: 1;
+        }
+
+        @at-root #{$parent}__rail {
+            @extend %railhandler;
+
+            height: 100%;
+
+            &-active {
+                right: 0;
+            }
+
+            &-run-active {
+                right: 0;
+            }
+        }
+
+        @at-root #{$parent}__handler {
+            @extend %railhandler;
+
+            height: 25%;
+
+            &:hover,
+            &:active {
+                background-color: rgba(48, 48, 48, 1);
+            }
+
+            &-active {
+                right: 0;
+            }
+
+            &-run-active {
+                right: 0;
+            }
+        }
+
+        @at-root #{$parent}__inner {
+
+            width: 100%;
+            user-select: none;
+        }
+    }
+}
+
+// optional
+.wheelScroll {
+    width: 100%;
+    height: 380px;
+}
