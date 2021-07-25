@@ -1,0 +1,168 @@
+$rail_width: 10px;
+
+// core style
+.wheelScroll {
+  $parent: #{&};
+
+  position: relative;
+
+  overflow: hidden;
+  z-index: 1;
+
+  @at-root #{$parent}__outer {
+
+    %railhandler {
+      position: absolute;
+
+      background-color: rgba(48, 48, 48, 0.5);
+      transition: .3s opacity;
+      z-index: 1;
+      opacity: 0;
+    }
+
+    @at-root #{$parent}__rail {
+      @extend %railhandler;
+
+      &--active {
+        opacity: 1 !important;
+      }
+
+      &--runActive {
+        opacity: 1 !important;
+      }
+
+      // when tablet size -> show handler & rail
+      &--mobile {
+        @media screen and (max-width: 768px) {
+          opacity: 1 !important;
+        }
+      }
+    }
+
+    @at-root #{$parent}__handler {
+      @extend %railhandler;
+
+      &:hover,
+      &:active {
+        background-color: rgba(48, 48, 48, 1);
+      }
+
+      &--active {
+        opacity: 1 !important;
+      }
+
+      &--runActive {
+        opacity: 1 !important;
+      }
+
+      // when tablet size -> show handler & rail
+      &--mobile {
+        @media screen and (max-width: 768px) {
+          opacity: 1 !important;
+        }
+      }
+    }
+
+    @at-root #{$parent}__inner {
+      display: inline-block;
+      user-select: none;
+    }
+  }
+}
+
+// y axis
+.wheelScroll__y {
+  $parent: '.wheelScroll';
+
+  #{$parent}__outer {
+    width: calc(100% + 17px);
+    height: 100%;
+
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    %railhandler {
+      top: 0;
+      right: 0;
+
+      width: $rail_width;
+    }
+
+    #{$parent}__rail {
+      @extend %railhandler;
+
+      height: 100%;
+    }
+
+    #{$parent}__handler {
+      @extend %railhandler;
+
+      height: 25%;
+    }
+
+    #{$parent}__inner {
+      width: 100%;
+    }
+  }
+
+  &--ltr {
+    #{$parent}__rail {
+      right: unset;
+      left: 0;
+    }
+
+    #{$parent}__handler {
+      right: unset;
+      left: 0;
+    }
+  }
+}
+
+// x axis
+.wheelScroll__x {
+  $parent: '.wheelScroll';
+
+  #{$parent}__outer {
+    width: 100%;
+    height: calc(100% + 17px);
+
+    overflow-x: scroll;
+    overflow-y: hidden;
+
+    %railhandler {
+      bottom: 0;
+      left: 0;
+
+      height: $rail_width;
+    }
+
+    #{$parent}__rail {
+      @extend %railhandler;
+
+      width: 100%;
+
+    }
+
+    #{$parent}__handler {
+      @extend %railhandler;
+
+      width: 25%;
+    }
+
+    #{$parent}__inner {
+      height: 100%;
+    }
+  }
+
+  &--reverse {
+    #{$parent}__rail {
+      bottom: unset;
+      top: 0;
+    }
+
+    #{$parent}__handler {
+      bottom: unset;
+      top: 0;
+    }
+  }
+}
